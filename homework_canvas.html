@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Drawing Area</title>
+<!-- You can add your style here rather than in an external style sheet. -->
+<style>
+	canvas {
+	    border:5px solid #d3d3d3;
+	    background-color: #f1f1f1;
+	    display: block;
+	}
+</style>
+</head>
+<body>
+    <!-- DO NOT MODIFY THIS HTML -->
+    <canvas id = "myCanvas" width = "350" height = "500"  ></canvas>
+    <input type = "color" id = "picker"/>
+		<script>
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+
+
+			c.width = window.innerWidth*0.8;
+			c.height = window.innerHeight*0.8;
+
+			function draw(x, y){
+				ctx.beginPath();
+				ctx.arc(x,y,10,0,2*Math.PI)
+				ctx.fill();
+			}
+
+			var started = true;
+			c.addEventListener(
+				'mousemove', function(e){
+				// e stands for event
+				// console.log(e);
+				var x = e.offsetX;
+  			var y = e.offsetY;
+
+				if (started) {
+					draw(x,y)
+				}
+
+
+
+				}
+			)
+			window.addEventListener(
+				'keydown', function(e){
+					console.log(e);
+					// if (e.key == "y"){
+					// 	ctx.fillStyle = "yellow";
+					// } else if (e.key == "r"){
+					// 	ctx.fillStyle = "red";
+					// } else if (e.key == "g") {
+					// 	ctx.fillStyle == "green";
+					// } else if (e.key == "b"){
+					// 	ctx.fillStyle == "blue";
+					// }
+					switch (e.key) {
+						case "y":
+							ctx.fillStyle = "yellow";
+							break;
+						case "r":
+						  ctx.fillStyle = "red";
+							break;
+						case "g":
+						  ctx.fillStyle = "green";
+							break;
+						case "b":
+						  ctx.fillStyle = "blue";
+							break;
+						case " ":
+						  ctx.clearRect(0,0,c.width, c.height);
+							break;
+						case "ArrowUp":
+							started = false;
+							break;
+						case "ArrowDown":
+							started = true;
+							break;
+
+					}
+				}
+			)
+			var picker = document.getElementById("picker")
+			window.addEventListener(
+				'change', function(){
+					ctx.fillStyle = picker.value;
+					// console.log(picker.value)
+
+})
+		</script>
+</body>
+</html>
